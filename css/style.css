@@ -140,3 +140,28 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
+
+
+/*² Style TEST */
+/* Bouton de retour à l'accueil */
+.back-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-button a {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button a:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
