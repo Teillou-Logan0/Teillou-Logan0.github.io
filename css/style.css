@@ -75,3 +75,68 @@ footer p {
 main {
   flex-grow: 1; /* Allow main content to expand to take available space */
 }
+/* Style pour les projets */
+.projet {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.projet h3 {
+  margin-top: 0;
+  color: #007bff;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+.projet p {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Style pour les parties des projets */
+.projet-partie {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border-left: 4px solid #007bff;
+  border-radius: 5px;
+}
+
+.projet-partie h4 {
+  margin: 0 0 5px;
+  font-size: 1.2em;
+  color: #007bff;
+}
+
+.projet-partie p {
+  margin: 0;
+  color: #555;
+}
+
+/* Style pour les liens de documentation */
+.projet a.btn {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.projet a.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Style pour la grille */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}

@@ -20,71 +20,86 @@
         <p>Bienvenue sur ma page de projets ! Ici, vous trouverez une sélection de mes travaux réalisés au cours des années dans le cadre de ma formation en BTS SIO.</p>
     </section>
 
-    <section id="projets-liste">
+    <section id="projets">
         <h2>Liste des Projets</h2>
-
-        <div class="projet">
-            <h3>Projet Gestion Seminaire </h3>
-            <p><strong>Description et contexte :</strong> 
-                Un séminaire est prévu le 12 octobre 2222 autour des questions urbaines, il est ouvert aux acteurs des seules municipalités, qui peuvent venir de différents départements.
-                Ce séminaire, durant une seule journée, prévoit différentes conférences qui pour certaines ont lieu sur le même créneau horaire.
-
-                Les données sont stockées dans des fichiers JSON ; ainsi, pour utiliser l’application, il ne sera pas nécessaire d’installer une base de données.
-                Le site Web sera développé avec du code PHP et permet d'exploiter les formulaires de présentation.
-                Des fonctions permettront d’accéder aux données dans un répertoire dédié. Leurs spécifications (signatures, services) sont présentées sous un format HTML.
-            </p>
-            <p></p>
-            <h4>Documentation :</h4>
-            <p>test</p>
-            <ul>
-                <li> </li>
-                <li></li>
-                <li></li>
-                
-            </ul>
-            <p><a href="projet1.pdf" target="_blank">Télécharger le document de projet en PDF</a></p>
+        <div class="grid">
+            <!-- Projet 1 -->
+            <div class="projet">
+                <h3>Gestion Séminaire</h3>
+                <p>Une application de gestion pour un séminaire avec différentes conférences, utilisant des fichiers JSON pour le stockage.</p>
+                <!-- Partie 1 -->
+                <div class="projet-partie">
+                    <h4>Partie 1 : Gestion des inscriptions</h4>
+                    <p>Développement d’un formulaire permettant d’inscrire les participants en vérifiant leurs informations via un fichier JSON.</p>
+                </div>
+                <!-- Partie 2 -->
+                <div class="projet-partie">
+                    <h4>Partie 2 : Gestion des conférences</h4>
+                    <p>Implémentation d’un module permettant de sélectionner les conférences par créneau horaire.</p>
+                </div>
+                <!-- Partie 3 -->
+                <div class="projet-partie">
+                    <h4>Partie 3 : Exportation des données</h4>
+                    <p>Fonctionnalité pour exporter les données en fichier CSV pour les organisateurs.</p>
+                </div>
+                <a href="projet1.pdf" target="_blank" class="btn">Documentation</a>
+            </div>
+    
+            <!-- Projet 2 -->
+            <div class="projet">
+                <h3>Application Bibliothèque</h3>
+                <p>Une application pour gérer les emprunts et les retours dans une bibliothèque, utilisant une base de données MySQL.</p>
+                <!-- Partie 1 -->
+                <div class="projet-partie">
+                    <h4>Partie 1 : Gestion des utilisateurs</h4>
+                    <p>Création d’un module pour ajouter et gérer les lecteurs inscrits à la bibliothèque.</p>
+                </div>
+                <!-- Partie 2 -->
+                <div class="projet-partie">
+                    <h4>Partie 2 : Gestion des emprunts</h4>
+                    <p>Développement d’une fonctionnalité pour enregistrer les emprunts et vérifier la disponibilité des ouvrages.</p>
+                </div>
+                <a href="projet2.pdf" target="_blank" class="btn">Documentation</a>
+            </div>
+    
+            <!-- Projet 3 -->
+            <div class="projet">
+                <h3>Consommation d'API</h3>
+                <p>Un projet permettant de consommer des API REST en PHP, avec des interfaces web pour afficher les résultats.</p>
+                <!-- Partie 1 -->
+                <div class="projet-partie">
+                    <h4>Partie 1 : Connexion à l’API</h4>
+                    <p>Mise en place d’une connexion sécurisée à une API REST externe avec cURL.</p>
+                </div>
+                <!-- Partie 2 -->
+                <div class="projet-partie">
+                    <h4>Partie 2 : Affichage des données</h4>
+                    <p>Création d’une interface utilisateur dynamique pour afficher les données récupérées de l’API.</p>
+                </div>
+                <a href="projet3.pdf" target="_blank" class="btn">Documentation</a>
+            </div>
+    
+            <!-- Projet 4 -->
+            <div class="projet">
+                <h3>Application de Gestion</h3>
+                <p>Un outil de gestion interne développé en C# et utilisant une base de données SQL Server.</p>
+                <!-- Partie 1 -->
+                <div class="projet-partie">
+                    <h4>Partie 1 : Création des modules de gestion</h4>
+                    <p>Développement d’une interface pour gérer les clients, les commandes et les produits.</p>
+                </div>
+                <!-- Partie 2 -->
+                <div class="projet-partie">
+                    <h4>Partie 2 : Gestion des rapports</h4>
+                    <p>Création d’un module pour générer des rapports financiers et statistiques.</p>
+                </div>
+                <!-- Partie 3 -->
+                <div class="projet-partie">
+                    <h4>Partie 3 : Sécurisation de l’accès</h4>
+                    <p>Ajout de fonctionnalités d’authentification et de gestion des rôles utilisateurs.</p>
+                </div>
+                <a href="projet4.pdf" target="_blank" class="btn">Documentation</a>
+            </div>
         </div>
-
-        <div class="projet">
-            <h3>Test : </h3>
-            <p><strong>Description :</strong> Test</p>
-            <h4>Documentation :</h4>
-            <p>test</p>
-            <ul>
-                <li>Tache 1 </li>
-                <li>Tache 2</li>
-                <li>Tache 3</li>
-                
-            </ul>
-            <p><a href="projet1.pdf" target="_blank">Télécharger le document de projet en PDF</a></p>
-        </div>
-
-        <div class="projet">
-            <h3>Test : </h3>
-            <p><strong>Description :</strong> Test</p>
-            <h4>Documentation :</h4>
-            <p>test</p>
-            <ul>
-                <li>Tache 1 </li>
-                <li>Tache 2</li>
-                <li>Tache 3</li>
-                
-            </ul>
-            <p><a href="projet1.pdf" target="_blank">Télécharger le document de projet en PDF</a></p>
-        </div>
-
-        <!-- Ajoutez d'autres projets ici -->
-    </section>
-
-    <!-- Bouton de retour à l'accueil -->
-    <div class="back-button">
-        <a href="index.html">Retour à l'accueil</a>
-    </div>
-</div>
-
-<footer>
-    <a>Portfolio de Teillou Logan - BTS SIO | Lycée Suzanne Valadon, Limoges</a>
-</footer>
-
-</body>
-</html>
+    </section>    
+</body>    
