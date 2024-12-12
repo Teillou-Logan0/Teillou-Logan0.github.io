@@ -5,12 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veille Technologique - Teillou Logan</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        async function fetchRSS() {
+            const urls = [
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/actualites.xml"
+            ];
+
+            const container = document.getElementById("rss-container");
+
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    // Create a section for each feed
+                    const section = document.createElement("section");
+                    section.innerHTML = `
+                        <h3>${data.feed.title}</h3>
+                        <ul>
+                            ${data.items.slice(0, 5).map(item => `
+                                <li>
+                                    <a href="${item.link}" target="_blank">${item.title}</a>
+                                    <p>${item.description}</p>
+                                    <small>Publié le : ${new Date(item.pubDate).toLocaleDateString()}</small>
+                                </li>
+                            `).join("")}
+                        </ul>
+                    `;
+                    container.appendChild(section);
+                } catch (error) {
+                    console.error("Erreur lors de la récupération du flux RSS :", error);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchRSS);
+    </script>
 </head>
 <body>
 
 <header>
     <div class="titre">
-    <h1>Veille Technologique</h1>
+        <h1>Veille Technologique</h1>
     </div>
 </header>
 
@@ -21,10 +58,9 @@
         <p>Elle est essentielle pour anticiper les changements et améliorer ses compétences en permanence.</p>
     </section>
 
-    <section id="outil">
-        <h2>Outil de Veille : Feedly</h2>
-        <p>Pour effectuer ma veille technologique, j'utilise <strong>Feedly</strong>, une application qui permet de suivre facilement plusieurs sources d'information (blogs, sites d'actualités, et magazines spécialisés) en un seul endroit.</p>
-        <p>Avec Feedly, je peux organiser mes sources par thématiques, comme le développement web, la cybersécurité, ou l'infrastructure des réseaux, pour obtenir les informations les plus pertinentes et rester informé des dernières tendances.</p>
+    <section id="rss-container">
+        <h2>Flux RSS Suivis</h2>
+        <!-- Les flux RSS seront affichés ici -->
     </section>
 
     <!-- Bouton de retour à l'accueil -->
@@ -32,7 +68,6 @@
         <a href="index.html">Retour à l'accueil</a>
     </div>
 </div>
-
 
 <footer>
     <a>Portfolio de Teillou Logan - BTS SIO | Lycée Suzanne Valadon, Limoges</a>
