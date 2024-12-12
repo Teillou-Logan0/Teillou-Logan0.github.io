@@ -5,109 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veille Technologique - Teillou Logan</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<header>
-    <div class="titre">
-        <h1>Veille Technologique</h1>
-    </div>
-</header>
-
-<div class="container">
-    <section id="definition">
-        <h2>Qu'est-ce que la Veille Technologique ?</h2>
-        <p>La veille technologique consiste à surveiller les évolutions dans le domaine informatique afin de rester à jour sur les nouvelles technologies, les innovations, et les tendances du secteur.</p>
-        <p>Elle est essentielle pour anticiper les changements et améliorer ses compétences en permanence.</p>
-    </section>
-
-    <section id="outil">
-        <h2>Outil de Veille : Feedly</h2>
-        <p>Pour effectuer ma veille technologique, j'utilise <strong>Feedly</strong>, une application qui permet de suivre facilement plusieurs sources d'information (blogs, sites d'actualités, et magazines spécialisés) en un seul endroit.</p>
-        <p>Avec Feedly, je peux organiser mes sources par thématiques, comme le développement web, la cybersécurité, ou l'infrastructure des réseaux, pour obtenir les informations les plus pertinentes et rester informé des dernières tendances.</p>
-    </section>
-
-    <section id="rss-feeds">
-        <h2>Flux RSS</h2>
-        <div id="rss-container">
-            <p>Chargement des flux RSS...</p>
-        </div>
-    </section>
-
-    <!-- Bouton de retour à l'accueil -->
-    <div class="back-button">
-        <a href="index.html">Retour à l'accueil</a>
-    </div>
-</div>
-
-<footer>
-    <a>Portfolio de Teillou Logan - BTS SIO | Lycée Suzanne Valadon, Limoges</a>
-</footer>
-
-<script>
-    // Liste des URLs de flux RSS
-    const rssUrls = [
-       "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
+    <script>
+        async function fetchRSS() {
+            const urls = [
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/securite.xml",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://www.lemagit.fr/rss/Securite",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://krebsonsecurity.com/feed/",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://blog.openclassrooms.com/fr/feed/",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/developpement.xml",
                 "https://api.rss2json.com/v1/api.json?rss_url=https://css-tricks.com/feed/"
-                
-    ];
+            ];
 
-    const rssContainer = document.getElementById("rss-container");
-    rssContainer.innerHTML = ""; // Vider le contenu initial
+            const container = document.getElementById("rss-container");
 
-    rssUrls.forEach(url => {
-        fetch(url)
-            .then(response => response.text())
-            .then(str => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(str, "application/xml");
-                const items = doc.querySelectorAll("item");
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
 
-                if (items.length > 0) {
-                    items.forEach(item => {
-                        const title = item.querySelector("title")?.textContent || "Titre non disponible";
-                        const link = item.querySelector("link")?.textContent || "#";
-                        const description = item.querySelector("description")?.textContent || "Pas de description.";
-
-                        // Créer les éléments HTML pour chaque article
-                        const article = document.createElement("div");
-                        article.classList.add("rss-item");
-
-                        const articleTitle = document.createElement("h3");
-                        const articleLink = document.createElement("a");
-                        articleLink.href = link;
-                        articleLink.textContent = title;
-                        articleLink.target = "_blank";
-                        articleTitle.appendChild(articleLink);
-
-                        const articleDescription = document.createElement("p");
-                        articleDescription.textContent = description;
-
-                        article.appendChild(articleTitle);
-                        article.appendChild(articleDescription);
-
-                        rssContainer.appendChild(article);
-                    });
-                } else {
-                    const noData = document.createElement("p");
-                    noData.textContent = "Aucun article disponible pour ce flux.";
-                    rssContainer.appendChild(noData);
+                    // Create a section for each feed
+                    const section = document.createElement("section");
+                    section.innerHTML = `
+                        <h3>${data.feed.title}</h3>
+                        <ul>
+                            ${data.items.slice(0, 5).map(item => `
+                                <li>
+                                    <a href="${item.link}" target="_blank">${item.title}</a>
+                                    <p>${item.description}</p>
+                                    <small>Publié le : ${new Date(item.pubDate).toLocaleDateString()}</small>
+                                </li>
+                            `).join("")}
+                        </ul>
+                    `;
+                    container.appendChild(section);
+                } catch (error) {
+                    console.error("Erreur lors de la récupération du flux RSS :", error);
                 }
-            })
-            .catch(error => {
-                console.error("Erreur lors de la récupération du flux RSS :", error);
-                const errorMessage = document.createElement("p");
-                errorMessage.textContent = `Erreur lors de la récupération du flux RSS : ${url}`;
-                rssContainer.appendChild(errorMessage);
-            });
-    });
-</script>
+            }
+        }
 
+        document.addEventListener("DOMContentLoaded", fetchRSS);
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="titre">
+            <h1>Veille Technologique</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="definition">
+            <h2>Qu'est-ce que la Veille Technologique ?</h2>
+            <p>La veille technologique consiste à surveiller les évolutions dans le domaine informatique afin de rester à jour sur les nouvelles technologies, les innovations, et les tendances du secteur.</p>
+            <p>Elle est essentielle pour anticiper les changements et améliorer ses compétences en permanence.</p>
+        </section>
+    
+        <section id="outil">
+            <h2>Outil de Veille : Feedly</h2>
+            <p>Pour effectuer ma veille technologique, j'utilise <strong>Feedly</strong>, une application qui permet de suivre facilement plusieurs sources d'information (blogs, sites d'actualités, et magazines spécialisés) en un seul endroit.</p>
+            <p>Avec Feedly, je peux organiser mes sources par thématiques, comme le développement web, la cybersécurité, ou l'infrastructure des réseaux, pour obtenir les informations les plus pertinentes et rester informé des dernières tendances.</p>
+        </section>
+    
+        <section id="rss-feeds">
+            <h2>Flux RSS</h2>
+            <div id="rss-container">
+                <p>Chargement des flux RSS...</p>
+            </div>
+        </section>
+    
+        <!-- Bouton de retour à l'accueil -->
+        <div class="back-button">
+            <a href="index.html">Retour à l'accueil</a>
+        </div>
+    </div>
+    
+    <footer>
+        <a>Portfolio de Teillou Logan - BTS SIO | Lycée Suzanne Valadon, Limoges</a>
+    </footer>
 </body>
 </html>
-
