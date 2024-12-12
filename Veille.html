@@ -7,46 +7,56 @@
     <link rel="stylesheet" href="css/style.css">
     <script>
         async function fetchRSS() {
-            const urls = [
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/securite.xml",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.lemagit.fr/rss/Securite",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://krebsonsecurity.com/feed/",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://blog.openclassrooms.com/fr/feed/",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/developpement.xml",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://css-tricks.com/feed/",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.ssi.gouv.fr/feed/",
-            ];
+    const urls = [
+        "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/securite.xml",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://www.lemagit.fr/rss/Securite",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://krebsonsecurity.com/feed/",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://blog.openclassrooms.com/fr/feed/",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/developpement.xml",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://css-tricks.com/feed/",
+        "https://api.rss2json.com/v1/api.json?rss_url=https://www.ssi.gouv.fr/feed/",
+    ];
 
-            const container = document.getElementById("rss-container");
+    const container = document.getElementById("rss-container");
 
-            for (const url of urls) {
-                try {
-                    const response = await fetch(url);
-                    const data = await response.json();
-
-                    // Create a section for each feed
-                    const section = document.createElement("section");
-                    section.innerHTML = `
-                        <h3>${data.feed.title}</h3>
-                        <ul>
-                            ${data.items.slice(0, 5).map(item => `
-                                <li>
-                                    <a href="${item.link}" target="_blank">${item.title}</a>
-                                    <p>${item.description}</p>
-                                    <small>Publié le : ${new Date(item.pubDate).toLocaleDateString()}</small>
-                                </li>
-                            `).join("")}
-                        </ul>
-                    `;
-                    container.appendChild(section);
-                } catch (error) {
-                    console.error("Erreur lors de la récupération du flux RSS :", error);
-                }
+    for (const url of urls) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Erreur réseau : ${response.status}`);
             }
-        }
 
-        document.addEventListener("DOMContentLoaded", fetchRSS);
+            const data = await response.json();
+            
+            // Vérifie que la réponse contient des données valides
+            if (data && data.feed && data.items) {
+                // Créer une section pour chaque flux
+                const section = document.createElement("section");
+                section.innerHTML = `
+                    <h3>${data.feed.title}</h3>
+                    <ul>
+                        ${data.items.slice(0, 5).map(item => `
+                            <li>
+                                <a href="${item.link}" target="_blank">${item.title}</a>
+                                <p>${item.description}</p>
+                                <small>Publié le : ${new Date(item.pubDate).toLocaleDateString()}</small>
+                            </li>
+                        `).join("")}
+                    </ul>
+                `;
+                container.appendChild(section);
+            } else {
+                throw new Error("Données RSS invalides ou manquantes.");
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération du flux RSS :", error);
+            const errorMessage = document.createElement("p");
+            errorMessage.textContent = `Impossible de récupérer le flux à partir de l'URL : ${url}`;
+            container.appendChild(errorMessage);
+        }
+    }
+}
     </script>
 </head>
 <body>
