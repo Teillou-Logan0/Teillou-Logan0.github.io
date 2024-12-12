@@ -9,7 +9,12 @@
         async function fetchRSS() {
             const urls = [
                 "https://api.rss2json.com/v1/api.json?rss_url=https://www.cnil.fr/fr/rss.xml",
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/actualites.xml"
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/securite.xml",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.lemagit.fr/rss/Securite",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://krebsonsecurity.com/feed/",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://blog.openclassrooms.com/fr/feed/",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/developpement.xml",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://css-tricks.com/feed/"
             ];
 
             const container = document.getElementById("rss-container");
@@ -61,6 +66,8 @@
     <section id="rss-container">
         <h2>Flux RSS Suivis</h2>
         <!-- Les flux RSS seront affichés ici -->
+
+
     </section>
 
     <!-- Bouton de retour à l'accueil -->
